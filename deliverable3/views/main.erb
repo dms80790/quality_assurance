@@ -1,0 +1,80 @@
+<html>
+  <head></head>
+  <body>
+    <% if !valid && !error%>
+      <form>
+      <fieldset>
+        <p>
+	      <label>True symbol:</label>
+          <input type= 'text' name= 'truth_symbol'/>
+	    </p>
+	      <label>False symbol:</label>
+	      <input type= 'text' name= 'false_symbol'/>
+	    </p>
+	    <p>
+	      <label>Size (2^x):</label>
+	      <input type= 'text' name= 'size'/>
+	    </p>
+      </fieldset>
+	  <p>
+	    <input type= 'submit' value= "Show truth table" name= 'submit_btn'/>
+      </p>
+	  <p>
+	    <a href = "/">Reload page</a>
+      </form>
+    <% end %>  
+  
+    <% if valid %>
+      <table>
+	    <tr>
+		  <% i = size %>	
+		  <% size.times do %> 	  
+	        <td style="padding:10px"><strong><%= i - 1%></strong></td>
+		  <% i -= 1 %>
+		  <% end %>
+		  <td style="padding:10px"><strong>AND</strong></td>
+		  <td style="padding:10px"><strong>OR</strong></td>
+		  <td style="padding:10px"><strong>NAND</strong></td>
+		  <td style="padding:10px"><strong>NOR</strong></td>
+	    </tr>
+	  
+	    <% row = 0 %>
+	    <% (2**size).times do %>
+	      <% col = 0 %>
+	      <tr>
+		    <% size.times do %>
+	          <td><%= truth_table[row][col] %></td>
+		      <% col += 1 %>
+		    <% end %>
+		  
+		    <td style="padding:10px"><%= truth_table[row][size] %></td>
+		    <td style="padding:10px"><%= truth_table[row][size+1] %></td>
+		    <td style="padding:10px"><%= truth_table[row][size+2] %></td>
+		    <td style="padding:10px"><%= truth_table[row][size+3] %></td>
+		    <% row += 1 %>
+	      </tr>
+	    <% end %>
+	
+	  </table>
+	
+	  <p>
+	    <a href = "/">Back to main page</a>
+	  </p>
+  <% end %>
+  
+  <% if error %>
+  	<h1>ERROR</h1>
+	<h2>Invalid Parameters</h2>
+	<p>Please enter:</p>
+	<p style ="padding-right: 5px">1. A single-character true symbol
+	<br>2. A single-character false symbol
+	<br>3. A size greater than or equal to 2
+	<br>4. Different characters for the true and false symbols.
+	</p>
+	<p>
+	  <a href = "/">Back to main page</a>
+	</p>
+  <% end %>
+  
+  </body>
+</html>
